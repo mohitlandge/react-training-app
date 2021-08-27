@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import Footer from './Footer';
+import '../css/login.css';
 class Signup extends Component {
     constructor() {
         super()
@@ -29,28 +30,29 @@ class Signup extends Component {
             this.setState({
                 users:this.state.users
             })
-        }
-        
-        // console.log("all users are", this.state.users)
+        }        
     }
     render(users) {
         return (
-            <div className="container">
+            <div id="signup_div" class="container-fluid">
                 <br />
-                <h3 style={{ textAlign: "center"}}>Add User</h3>
-                <div style={{ border: "1px solid black", padding:"10px", borderRadius:"20px", backgroundColor:"pink" }}>
+                <div id="form_div" className="col-md-6 offset-3"
+                    // style={{ border: "1px solid black", padding: "10px", borderRadius: "20px", backgroundColor: "pink" }}
+                >
+                    <h4 className="mt-2" style={{ textAlign: "center" }}>Add User</h4>
+                    <br />
                 <form >
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Name</label>
+                        {/* <label for="exampleInputEmail1">Name</label> */}
                         <input name="name" onChange={this.getName} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" />
                         <small id="emailHelp" className="form-text text-muted"></small>
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Email</label>
+                        {/* <label for="exampleInputPassword1">Email</label> */}
                         <input name="email" onChange={this.getEmail} type="email" className="form-control" id="exampleInputPassword1" placeholder="Enter Email" />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
+                        {/* <label for="exampleInputPassword1">Password</label> */}
                         <input name="password" onChange={this.getPassword} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                     </div>
                     <button style={{ textAlign:"center"}} onClick={this.signup} type="submit" className="btn btn-primary">SignUp</button>
@@ -85,7 +87,8 @@ class Signup extends Component {
                     
                 </table>
             </div>
-        </div>
+    </div>
+            
         )
     }
 }

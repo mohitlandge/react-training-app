@@ -1,0 +1,42 @@
+#login_div, #signup_div{
+    background-image: url("https://www.teahub.io/photos/full/63-630908_birthday-cake-wallpaper-hd-with-cake-images-pictures.jpg");
+    background-repeat:no-repeat;
+    height: 100%;
+    width: 100%; 
+}
+
+#form_div{
+    justify-content: center;
+    border-radius: 15px;
+    border: 1px solid black;
+    text-align: center;
+    height: 700px;
+    background: white;
+    font-family: Poppins-Regular;
+}
+label {
+    text-align: left;
+}
+
+.form-control {
+    border-top: none ;
+    border-left: none ;
+    border-right: none ;
+}
+
+#login_btn{
+    border-radius: 10px;
+    background-color:  #4dff4d;
+    color: white;
+}
+#login_btn:hover{
+    border-radius: 10px;
+    background-color:  pink;
+    color: black;
+}
+
+.footer{
+    background-color: teal;
+    height: 50px;
+    color: white;
+}

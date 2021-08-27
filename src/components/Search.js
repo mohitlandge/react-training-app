@@ -1,7 +1,7 @@
 function Search() {
     return (
         <div className="container">
-            Search
+            <h3>This is the search component</h3>
         </div>
     )
 }

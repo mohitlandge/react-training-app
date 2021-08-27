@@ -1,0 +1,14 @@
+
+#form_div{
+    justify-content: center;
+    border-radius: 15px;
+    border: 1px solid black;
+    text-align: center;
+    height: 700px;
+    background: white;
+    font-family: Poppins-Regular;
+}
+label {
+    text-align: left;
+}
+

@@ -1,7 +1,7 @@
 function PageNotFound() {
     return (
         <div className="container">
-            page not found
+        <img src="page_not_found.jpeg"/>
         </div>
     )
 }

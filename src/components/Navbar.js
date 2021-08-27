@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import '../css/login.css';
 
 function Navbar() {
     var title = "Mohit's Cake Shop"
@@ -17,10 +18,10 @@ function Navbar() {
     }
 
     var search = function (event) {
-        event.preventDefault()
+        // event.preventDefault()
         // alert('search btn clicked');
         if (text) {
-            alert('Search for '+ text + 'cakes')
+            // alert('Search for '+ text + 'cakes')
             
         }
     }
@@ -40,16 +41,14 @@ function Navbar() {
                         width: "100px",
                         objectFit: "contain",
                         margin: "0 20px",
-                        marginTop: "-15px"
+                        marginTop: "-22px"
                     } }
           className="header_logo"
           alt="logo"
-          src="cake_logo_2.png"
+          src="https://i.pinimg.com/originals/bc/b3/59/bcb35977c102ef35735041b135a6e999.png"
         ></img>
                 </Link>
-                {/* <Link to="/"><h3>Mohit's Cake Shop</h3></Link> */}
-                {/* <a className="navbar-brand" href="#">Mohit's Cake Shop</a> */}
-                <h3 class="offset-3" style={{ textAlign: "center", color:"gray", fontFamily:"serif" }}> Mohit's cake shop</h3>
+                <h3 class="offset-4" style={{ fontFamily: "verdana", padding: "5px", borderBottom:"1px solid blue", textAlign: "center", color:"violet", fontFamily:"serif" }}><b> Mohit Cake Shop</b></h3>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -57,8 +56,8 @@ function Navbar() {
                 <ul className="navbar-nav mr-auto">
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
-                        <input onChange={getSearchText} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                <button onClick={search}  className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <input style={{width: "300px"}} onChange={getSearchText} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                        <Link to="/search"><button onClick={search}  className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></Link>
                                 </form>
                                 {/* {element} */}
                 {/* {user == 'umang' && <div className="form-inline my-2 my-lg-0">
@@ -67,9 +66,9 @@ function Navbar() {
                 {/* {user == 'umang' || <div className="form-inline my-2 my-lg-0">
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
                                 </div>} */}
-            <div className="form-inline my-2 my-lg-0">
+            {/* <div className="form-inline my-2 my-lg-0">
             <Link to="/signup"><button  className="btn btn-outline-success my-2 my-sm-0" type="submit">Signup</button></Link>
-                    </div>
+                    </div> */}
                 {user =='umang' ? <div className="form-inline my-2 my-lg-0">
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
                     </div> :
