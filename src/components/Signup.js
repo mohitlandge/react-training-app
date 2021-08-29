@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
 import Footer from './Footer';
 import '../css/login.css';
+import axios from 'axios';
+
+
 class Signup extends Component {
     constructor() {
         super()
         this.state = {
             users:[]
         }
+    }
+
+    componentDidMount() {
+        // alert('mounted');
+        
+    }
+    componentDidUpdate() {
+        // alert('updated');
+        
+    }
+    componentWillUnmount() {
+        // alert('leaving');
+        
     }
     user = {}
     
@@ -22,15 +38,32 @@ class Signup extends Component {
     }
 
     signup = (e) => {
+        
         e.preventDefault()
         // console.log("details are ", this.user)
         if (this.user.name && this.user.email && this.user.password) {
+            // alert('clicked');
+            
+
+            axios({
+                method: "post",
+                url: process.env.REACT_APP_BASEAPI+ '/register',
+                data: this.user,
+                
+            }).then((response) => {
+                console.log(response.data);
+                console.log("response from signup api", response)
+            }, (error) => {
+                console.log("error from signup api", error)
+            })
+
             var newobj = {...this.user}
             this.state.users.push(newobj)    
             this.setState({
                 users:this.state.users
             })
-        }        
+        }   
+        
     }
     render(users) {
         return (
@@ -48,11 +81,9 @@ class Signup extends Component {
                         <small id="emailHelp" className="form-text text-muted"></small>
                     </div>
                     <div className="form-group">
-                        {/* <label for="exampleInputPassword1">Email</label> */}
                         <input name="email" onChange={this.getEmail} type="email" className="form-control" id="exampleInputPassword1" placeholder="Enter Email" />
                     </div>
                     <div className="form-group">
-                        {/* <label for="exampleInputPassword1">Password</label> */}
                         <input name="password" onChange={this.getPassword} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                     </div>
                     <button style={{ textAlign:"center"}} onClick={this.signup} type="submit" className="btn btn-primary">SignUp</button>

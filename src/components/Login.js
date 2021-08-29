@@ -4,32 +4,71 @@ import { Redirect } from 'react-router-dom';
 import '../css/login.css';
 import { History } from "react-router-dom";
 import Footer from './Footer';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
-class Login extends Component{
-    constructor() {
-        super()
-        this.state = {
+// class Login extends Component{
+//     constructor() {
+//         super()
+//         this.state = {
+//         }
+function Login() {
+    var [error, setError] = useState(null)
+    var [passwordError, setPasswordError] = useState(null)
+    useEffect(() => {
+        // alert('.......');
+    },[error, passwordError])
+    var user = {}
+
+    function getEmail(e) {
+        user.email = e.target.value
+    }
+    function getPassword(e) {
+        user.password = e.target.value
+        
+    }
+    function login(e) {
+        e.preventDefault()
+        if (!user.email) {
+            setError("Email is required");
         }
-    }
-    user = {}
-
-    getEmail = (e) => {
-        this.user.email = e.target.value
-    }
-    getPassword = (e) => {
-        this.user.password = e.target.value
-    }
-    login = (e) => {
-        console.log(this.user)
-        if (this.user.email && this.user.password) {
-            if (this.user.password.length >= 8) {
-                this.props.history.push('/')    
-            }
+        if (!user.password) {
+            setPasswordError("Password is required");
         }
+        if (user.email && user.password) {
+            axios({
+                method: "post",
+                url: process.env.REACT_APP_BASEAPI+ '/login',
+                data: user,
+                
+            }).then((response) => {
+                console.log(response.data);
+                console.log("response from signup api", response)
+            }, (error) => {
+                console.log("error from signup api", error)
+            })
+        }
+        
     }
+    
+    // user = {}
+    // getEmail = (e) => {
+    //     this.user.email = e.target.value
+    // }
+    // getPassword = (e) => {
+    //     this.user.password = e.target.value
+    // }
+    // login = (e) => {
+    //     console.log(this.user)
+    //     if (this.user.email && this.user.password) {
+    //         if (this.user.password.length >= 8) {
+    //             this.props.history.push('/')    
+    //         }
+    //     }
+    // } render(){
+    
 
-    render() {
         return (
             <div id="login_div" class="container-fluid">
                 <br />
@@ -40,17 +79,19 @@ class Login extends Component{
             <form>
             <div class="form-group">
                 {/* <label for="exampleInputEmail1">Email</label> */}
-                <input onChange={this.getEmail} required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email address" />
-                <small></small>
+                <input onChange={getEmail} required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email address" />
+                            <small></small>
+                            {error}
             </div>
             <div class="form-group">
                 {/* <label for="exampleInputPassword1">Password</label> */}
-                <input minLength="8" onChange={this.getPassword} required type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-                <small></small>
+                <input minLength="8" onChange={getPassword} required type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                            <small></small>
+                            {passwordError}
             </div>
             <br></br>
                     <div className="col-md-2 offset-4">
-                    <button id="login_btn" onClick={this.login} type="submit" class="btn">Login</button>
+                    <button id="login_btn" onClick={login} type="submit" class="btn">Login</button>
                     </div>
                     <br></br>
 
@@ -97,10 +138,9 @@ class Login extends Component{
             </div>
             
         )
-    }
+    // }
+
 }
-
-
 export default Login
 
 
