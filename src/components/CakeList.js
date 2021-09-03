@@ -1,11 +1,15 @@
 import Cake from "./Cake"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { css } from "@emotion/react";
+import GridLoader from "react-spinners/GridLoader";
 
 
 
 function CakeList() {
     var [cakes, setCakes] = useState([])
+    let [loading, setLoading] = useState(true);
+    const color = 'pink';
 
     useEffect(() => { 
         axios({
@@ -15,8 +19,10 @@ function CakeList() {
             console.log(response)
             console.log("response from get cakes api", response.data)
             setCakes(response.data.data)
+            setLoading(false);
         }, (error) => {
-            console.log("error from get api", error)
+                console.log("error from get api", error)
+                setLoading(false);
         })
     },[])
     // var cakes = [{
@@ -73,11 +79,8 @@ function CakeList() {
     
     // ]
     return (
-
-        
-
         <div className="row" style={{ paddingLeft: "50px" }} >
-            
+            <GridLoader color={color} loading={loading} css={{display:"block", margin:"0 auto", borderColor: "red"}} size={15} />
             {
                 cakes.map((each,index)=>{
                     return <Cake kay={index} cake={each} />

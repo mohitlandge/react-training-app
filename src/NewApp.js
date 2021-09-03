@@ -9,6 +9,8 @@ import Admin from './components/Admin';
 import Home from './components/Home';
 import Forgot from './components/Forgot';
 import PageNotFound from './components/PageNotFound';
+import CakePage from './components/CakePage';
+import CakeDetail from './components/CakeDetail';
 
 
 function NewApp() {
@@ -26,6 +28,7 @@ function NewApp() {
                     <Route exact path='/cart' component={Cart} />
                     <Route exact path='/admin' component={Admin} />
                     <Route exact path='/forgot' component={Forgot} />
+                    <Route exact path="/cake/:cakeid" component={CakeDetail}></Route>
                     <Route exact path='/*' component={PageNotFound} />
 
                 </Switch>
