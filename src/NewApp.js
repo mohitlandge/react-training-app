@@ -11,17 +11,27 @@ import Forgot from './components/Forgot';
 import PageNotFound from './components/PageNotFound';
 import CakePage from './components/CakePage';
 import CakeDetail from './components/CakeDetail';
+import { useState, useEffect } from 'react';
 
 
 function NewApp() {
+
+    var[isLoggedIn, setIsLoggedIn] = useState(localStorage.token?true:false)
+    function login() {
+        setIsLoggedIn(true)
+        // window.location.href="/"
+        
+    }
+
     return (
         <div>
             {/* Hello */}
             <BrowserRouter>
-                <Navbar />
+                <Navbar isLoggedIn={ isLoggedIn} />
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/login' component={Login} />
+                    {/* <Route exact path='/login' component={Login} /> */}
+                    <Route exact path='/login'><Login></Login></Route>
                     <Route exact path='/signup' component={Signup} />
                     <Route exact path='/search' component={Search} />
                     <Route exact path='/carousel' component={Carousel} />

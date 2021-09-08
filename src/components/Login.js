@@ -1,35 +1,36 @@
-import { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Link, useHistory, Redirect, History } from 'react-router-dom';
 import '../css/login.css';
-import { History } from "react-router-dom";
 import Footer from './Footer';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 
-// class Login extends Component{
-//     constructor() {
-//         super()
-//         this.state = {
-//         }
-function Login() {
+function Login(props) {
+    var history = useHistory()
     var [error, setError] = useState(null)
+    var [loginError, setLoginError] = useState(null)
     var [passwordError, setPasswordError] = useState(null)
+    var [user, setUser] = useState({})
+    
     useEffect(() => {
-        // alert('.......');
-    },[error, passwordError])
-    var user = {}
+        // var user = {}
+    },[])
+    
 
     function getEmail(e) {
         user.email = e.target.value
+        setUser(user)
     }
     function getPassword(e) {
         user.password = e.target.value
+        setUser(user)
+
         
     }
     function login(e) {
         e.preventDefault()
+        console.log("..........", user)
         if (!user.email) {
             setError("Email is required");
         }
@@ -44,31 +45,29 @@ function Login() {
                 
             }).then((response) => {
                 console.log(response.data);
-                console.log("response from signup api", response)
+                console.log("response from login api", response)
+                localStorage.token = response.data.token
+                if (response.data.token) {
+                    props.dispatch({
+                        type: "LOGIN",
+                        
+                    })
+                    // props.login()
+                    history.push('/')
+                } else {
+                    setLoginError('The credentials are invalid')
+                }
+
             }, (error) => {
-                console.log("error from signup api", error)
+                console.log("error from login api", error)
             })
         }
         
     }
-    
-    // user = {}
-    // getEmail = (e) => {
-    //     this.user.email = e.target.value
-    // }
-    // getPassword = (e) => {
-    //     this.user.password = e.target.value
-    // }
-    // login = (e) => {
-    //     console.log(this.user)
-    //     if (this.user.email && this.user.password) {
-    //         if (this.user.password.length >= 8) {
-    //             this.props.history.push('/')    
-    //         }
-    //     }
-    // } render(){
-    
 
+    if (localStorage.token) {
+        return <Redirect to ="/" />
+    } else {
         return (
             <div id="login_div" class="container-fluid">
                 <br />
@@ -88,8 +87,16 @@ function Login() {
                 <input minLength="8" onChange={getPassword} required type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
                             <small></small>
                             {passwordError}
-            </div>
-            <br></br>
+                        </div>
+                        <div className="form-group">
+                            <Link to="/forgot">Forgot Password</Link>
+                            <Link style={{float:"right"}} to="/signup">New user Click here</Link>
+                        </div>
+                        <div className="form-group">
+                            { loginError}
+
+                        </div>
+                    <br></br>
                     <div className="col-md-2 offset-4">
                     <button id="login_btn" onClick={login} type="submit" class="btn">Login</button>
                     </div>
@@ -104,13 +111,7 @@ function Login() {
                             </div>
                             <div className="form-inline col-md-4 offset-2 ">
                                 <Link to="/forgot">Forgot password..</Link>
-                             </div>    
-                            {/* </div> */}
-                            {/* {
-                                $('#myModal').on('shown.bs.modal', function () {
-                                    $('#myInput').trigger('focus')
-                                })
-                            } */}
+                            </div>    
 
             <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -138,11 +139,12 @@ function Login() {
             </div>
             
         )
-    // }
+    }
 
 }
-export default Login
+// export default Login
 
+export default connect()(Login)
 
 
 

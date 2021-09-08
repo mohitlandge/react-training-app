@@ -1,10 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import '../css/login.css';
 import { useState, useEffect } from 'react';
+import { } from 'react-router-dom';
+import queryString from 'query-string';
+import { connect } from 'react-redux';
 
 
-function Navbar() {
+
+function Navbar(props) {
+    console.log('>>>>>>>>>>>> navbar props', props, useLocation().search)
+    // var query = queryString.parse(useLocation().search)
+    var [text, setText] = useState(queryString.parse(useLocation().search).q)
     var title = "Mohit's Cake Shop"
+    var history = useHistory();
     var user = "umang1"
     if (user == 'umang') {
         var element = <div className="form-inline my-2 my-lg-0">
@@ -16,25 +24,31 @@ function Navbar() {
     var text 
 
     var getSearchText = function (event) {
-        text = event.target.value
+        // text = event.target.value
+        setText(event.target.value)
+    }
+
+    function logout() {
+        localStorage.clear()
+        window.location.href="/"
     }
 
     var search = function (event) {
-        // event.preventDefault()
-        // alert('search btn clicked');
+        event.preventDefault()
         if (text) {
-            // alert('Search for '+ text + 'cakes')
-            
+            var route = '/search?q=' + text
+            // alert(route);
+            history.push(route);
         }
     }
+    var cart = function (event) {
+        console.log('cart clicked');
+        const route = '/cart';
+        history.push(route)
+    }
 
-
-//   function signup() {
-//     window.location.push("/signup");
-//   }
     
-        
-    // preve
+    
     return (
         <div>
             <nav style={{ height:"50px" }} className="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,8 +72,8 @@ function Navbar() {
                 <ul className="navbar-nav mr-auto">
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
-                        <input style={{width: "300px"}} onChange={getSearchText} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                        <Link to="/search"><button onClick={search}  className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></Link>
+                        <input value={text} style={{width: "300px"}} onChange={getSearchText} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button onClick={search}  className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                                 {/* {element} */}
                 {/* {user == 'umang' && <div className="form-inline my-2 my-lg-0">
@@ -71,16 +85,31 @@ function Navbar() {
             {/* <div className="form-inline my-2 my-lg-0">
             <Link to="/signup"><button  className="btn btn-outline-success my-2 my-sm-0" type="submit">Signup</button></Link>
                     </div> */}
-                {user =='umang' ? <div className="form-inline my-2 my-lg-0">
+                {/* {user =='umang' ? <div className="form-inline my-2 my-lg-0">
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
                     </div> :
                         <div className="form-inline my-2 my-lg-0">
                 <Link to="/login"><button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></Link>
-                    </div> }    
+                    </div> }     */}
+
+                    {!props.isLoggedIn && <div className="form-inline my-2 my-lg-0">
+                        <Link to="/login"><button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></Link>
+                    </div>}
+
+                { props.isLoggedIn && <div className="form-inline my-2 my-lg-0">
+                        <button onClick={logout} className="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                        <button onClick = {cart} className="btn btn-outline-warning my-2 my-sm-0">Cart</button>
+                    </div>}
                 </div>
             </nav>
         </div>
     )
 }
 
-export default Navbar
+// export default Navbar
+
+export default connect(function (state,props) {
+    return {
+    isLoggedIn: state.isLoggedIn
+    }
+})(Navbar)

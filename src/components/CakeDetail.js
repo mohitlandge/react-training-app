@@ -13,7 +13,30 @@ function CakeDetail(props)
         border-color: red;
     `;
     let [loading, setLoading] = useState(true);
-    let [color, setColor] = useState("#FFFFFF");
+    let [color, setColor] = useState("#000000");
+
+    function addToCart() {
+        console.log('see props below')
+        console.log(props)
+        let cakeid = cakedetails.cakeid
+        let name = cakedetails.name
+        let price = cakedetails.price
+        let weight = cakedetails.weight
+        let image = cakedetails.image
+        let quantity = 1
+        axios({
+            method: "post",
+            url: process.env.REACT_APP_BASEAPI + "/addcaketocart",
+            data: { name, cakeid, price, weight, image, quantity },
+            Headers:{authtoken:localStorage.token}
+        }).then((response) => {
+            console.log('resonse from add cake to cart api')
+            console.log(response)
+        }, (error) => {
+            console.log('error in adding to cart', error)
+            
+        })
+    }
 
     useEffect(() => {
 		axios({
@@ -55,7 +78,7 @@ function CakeDetail(props)
                                 </div>
                             </div>
                             <div style={{textAlign: "center"}}>
-                                <Link to="/cart"> <button className="btn btn-primary addtocart">Add to Cart</button> </Link>
+                                    <button onClick={ addToCart} className="btn btn-primary addtocart">Add to Cart</button>
                             </div>
                         </div>
                     </div>

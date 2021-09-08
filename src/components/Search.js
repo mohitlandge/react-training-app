@@ -5,11 +5,13 @@ import Cake from "./Cake"
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";
+import queryString from 'query-string';
 
 
-function Search() {
+function Search(props) {
 
-let [cakes, setCakes] = useState([]);
+var query = queryString.parse(props.location.search)
+var [cakes, setCakes] = useState([]);
 const override = css`
 display: block;
 margin: 0 auto;
@@ -20,7 +22,7 @@ let [color, setColor] = useState("#FFFFFF");
 
     useEffect(()=>{
         axios({
-            url: process.env.REACT_APP_BASEAPI+"/searchcakes?q=choco",
+            url: process.env.REACT_APP_BASEAPI+"/searchcakes?q="+query.q,
             method: 'get'
         }).then((response)=>{
             console.log("response here", response.data.data);
@@ -30,24 +32,26 @@ let [color, setColor] = useState("#FFFFFF");
         },(error)=>{
             console.log("error", error);
         })
-    }, [])
+    }, [query.q])
     
     return (
         <div>
-            <GridLoader color={color} loading={loading} style={override} size={15} />
-                { cakes?.map((cake,index) =>( 
-                <div className="card hvimg"  key={index}>
-                    <Link to={"/cake/"+cake.cakeid}> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
-                <div className="card-body">
-                    <h5 className="card-title">{cake.name}</h5>
-                    <p className="card-text">₹{cake.price}</p>
-                    <div style={{textAlign:"center"}}>
-                   <Link to={"/cake/"+cake.cakeid}> <button className="btn btn-primary">Cake Details</button> </Link>
+            <div className="row">
+                {
+                    cakes?.map((each, index) => {
+                        
+                        return <Cake key={index} cake={ each}/>
+                    })
+                }
+                {
+                    cakes.length == 0 && <div>
+                        <h2>No result found for your search { query.q} . Please try some other cake!!</h2>
                     </div>
-                </div>
-                </div>
-            ))}
-    </div>
+                }
+
+            </div>
+            
+        </div>
     )
 }
 export default Search
