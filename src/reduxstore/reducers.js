@@ -45,6 +45,14 @@ export function Reducer1(state={
             state["error"] = "Internal Server Error"
             return state
         }
+            
+        //added by mohit
+        case "cartItemList" :{
+            state = {...state}
+            state["cartItemList"] = false
+            state["error"] = "Internal Server Error"
+            return state
+        }
         default : return state
     }
 

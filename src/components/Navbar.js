@@ -1,7 +1,8 @@
+
+import React, { Component }  from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import '../css/login.css';
 import { useState, useEffect } from 'react';
-import { } from 'react-router-dom';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component }  from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cake from "./Cake"
@@ -38,7 +38,7 @@ let [color, setColor] = useState("#FFFFFF");
         <div>
             <div className="row">
                 {
-                    cakes?.map((each, index) => {
+                    cakes.map((each, index) => {
                         
                         return <Cake key={index} cake={ each}/>
                     })

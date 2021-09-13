@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component }  from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { render } from 'react-dom';

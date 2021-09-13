@@ -1,5 +1,6 @@
+
 import Cake from "./Cake"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState, Component } from "react"
 import axios from "axios"
 import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";

@@ -1,7 +1,7 @@
 import { Link, useHistory, Redirect, History } from 'react-router-dom';
 import '../css/login.css';
 import Footer from './Footer';
-import { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 

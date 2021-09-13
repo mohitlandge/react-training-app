@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import axios from "axios";
 import CakePage from "./CakePage";
 import { Link, useHistory } from "react-router-dom";

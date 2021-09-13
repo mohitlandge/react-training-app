@@ -21,7 +21,7 @@ import axios from "axios"
    }
    
 
-    if(result?.data?.data)
+    if(result && result.data.data)
     yield put({
         type:"GET_CART_SUCCESS",
         payload:result.data.data

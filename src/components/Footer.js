@@ -1,3 +1,5 @@
+import React, { Component }  from 'react';
+
 function Footer() {
     return (
         <div className="footer container-fluid">

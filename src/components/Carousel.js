@@ -1,3 +1,5 @@
+import React, { Component }  from 'react';
+
 function Carousel() {
     var carousal_1 = 'carousal_1.jpeg';
     var carousal_1 = 'carousal_2.jpeg';
